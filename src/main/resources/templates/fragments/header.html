@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<header th:fragment="header">
+  <div class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a class="navbar-brand" th:href="@{/}">Book Store</a>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">Books</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+</body>
+</html>

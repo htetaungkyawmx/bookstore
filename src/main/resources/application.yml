@@ -1,0 +1,5 @@
+app:
+  version: @project.version@
+spring:
+  profiles:
+    active: dev
