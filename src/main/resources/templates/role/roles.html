@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout/layout :: layout (~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <main role="main">
+        <div class="container mt-5">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="roleList: ${roleList}">
+                    <td th:text="${roleList.id}"></td>
+                    <td th:text="${roleList.name}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="#" th:href="@{/role}" class="btn btn-success">New Role</a>
+        </div>
+    </main>
+</body>
+</html>

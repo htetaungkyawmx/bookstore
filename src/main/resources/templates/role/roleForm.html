@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout/layout :: layout (~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <main role="main">
+        <div class="container mt-5 jumbotron">
+
+            <div class="mt-5">
+                <form th:action="@{/role/create}" method="post" th:object="${role}">
+
+                    <div class="form-group row">
+                        <label for="name" class="col-md-2">Role Name</label>
+                        <div class="col-md-6">
+                            <input type="text" id="name" th:field="*{name}" class="form-control" />
+                        </div>
+                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
