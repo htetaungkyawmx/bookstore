@@ -1,13 +1,11 @@
 package com.bs.bookstore.controller;
 
-import com.bs.bookstore.entity.User;
+import com.bs.bookstore.dto.UserDTO;
 import com.bs.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,15 +15,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public String userForm(Model model) {
-        model.addAttribute("user", new User());
-        return "user/userForm";
+    @GetMapping("/home")
+    public String index() {
+        return "index";
     }
 
-    @PostMapping("/create")
-    public String userFormCreate(User user) {
-        userService.save(user);
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
+        return "user/login";
+    }
+
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
+        return "user/register";
+    }
+
+    @PostMapping("/register")
+    public String processUserRegister(UserDTO userDTO) {
+        userService.save(userDTO);
         return "redirect:/user/list";
     }
 
@@ -35,26 +44,5 @@ public class UserController {
         return "user/users";
     }
 
-    @GetMapping("/user/edit/{id}")
-    public String updateForm(@PathVariable Integer id, Model model) {
-        User user = userService.findUserById(id);
-        model.addAttribute("user", user);
-        return "user/updateUser";
-    }
-    @PostMapping("/user/update/{id}")
-    public String updateProcess(@PathVariable Integer id, User user, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            user.setId(id);
-            return "user/updateUser";
-        }
-        userService.save(user);
-        return "redirect:/user/all";
-    }
 
-    @GetMapping("/user/delete/{id}")
-    public String delete(@PathVariable Integer id, Model model) {
-        User user= userService.findUserById(id);
-        userService.delete(user);
-        return "redirect:/user/all";
-    }
 }

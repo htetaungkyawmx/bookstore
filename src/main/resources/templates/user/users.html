@@ -10,9 +10,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Password</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -20,14 +17,10 @@
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.email}"></td>
-                    <td th:text="${user.password}"></td>
-                    <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a></td>
-                    <td><a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
 
-            <a href="#" th:href="@{/user}" class="btn btn-success">New User</a>
         </div>
     </main>
 </body>
