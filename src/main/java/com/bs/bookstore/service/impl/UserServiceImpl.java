@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public UserServiceImpl(UserRepository userRepository) {
+        super();
+        this.userRepository = userRepository;
+    }
+
     @Override
     public User save(UserDTO userDTO) {
         Role role = Role.builder()
@@ -39,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("INVALID USER ID" + id));
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("INVALID USER ID " + id));
     }
 
     @Override

@@ -2,35 +2,46 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns="http://www.w3.org/1999/html">
+
 <body>
 <header th:fragment="header">
-  <div class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-    <div class="container d-flex justify-content-between">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
       <a class="navbar-brand" th:href="@{/user/home}">Book Store</a>
-
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" th:href="@{/role}">New Role</a></li>
+        <ul class="navbar-nav mr-auto">
+          <!--<li class="nav-item"><a class="nav-link" th:href="@{/role}">New Role</a></li>
           <li class="nav-item"><a class="nav-link" th:href="@{/role/list}">Role List</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/user/list}">User List</a></li>
-        </ul>
+          <li class="nav-item"><a class="nav-link" th:href="@{/user/list}">User List</a></li>-->
 
-        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" th:href="@{/authors/new}">New Author</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/authors}">Authors</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/books/new}">New Book</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/books}">Books</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="@{/user/register}"
+               style="color: lightgreen;">Register</a>
+          </li>
           <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-            <a class="nav-link dropdown-toggle" sec:authentication="name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" th:href="@{/user/profile}" sec:authorize="isAuthenticated()" style="color: green;" >Profile</a>
-              <a class="dropdown-item" th:href="@{/logout}" sec:authorize="isAuthenticated()" style="color: tomato;" >Sign out</a>
+            <!--
+              <a class="nav-link" href="#" role="button" id="profile-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" sec:authentication="name"></a>
+            -->
+            <img role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:src="@{/images/profile.jpg}" alt="" style="width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 16px; font-weight: bold; cursor: pointer;">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-dropdown-toggle">
+              <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+              <a class="dropdown-item" th:href="@{/logout}" style="color: tomato;">Sign out</a>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/user/register}" sec:authorize="!isAuthenticated()" style="color: lightgreen;">Register</a>
-          </li>
         </ul>
-
       </div>
     </div>
-  </div>
+  </nav>
 </header>
 </body>
 </html>

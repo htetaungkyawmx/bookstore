@@ -17,4 +17,6 @@ public class BookstoreApplication {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }

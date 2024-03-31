@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserService {
    User save(UserDTO userDTO);
    User findUserById(Integer id);
+
    Optional<User> findUserByEmail(String email);
    List<User> findAll();
-
 }

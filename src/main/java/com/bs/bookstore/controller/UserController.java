@@ -19,7 +19,6 @@ public class UserController {
     public String index() {
         return "index";
     }
-
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("userDTO", new UserDTO());
@@ -43,6 +42,4 @@ public class UserController {
         model.addAttribute("userList", userService.findAll());
         return "user/users";
     }
-
-
 }

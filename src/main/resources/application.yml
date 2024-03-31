@@ -3,3 +3,6 @@ app:
 spring:
   profiles:
     active: dev
+bookstore:
+  user:
+    profileImageDirectory: 'D:/bookstore/user/profileImage/'

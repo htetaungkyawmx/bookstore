@@ -16,18 +16,22 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Autowired
     private CustomAuthenticationProvider customAuthenticationProvider;
 
-    private static final String[] ENDPOINT_WHITELIST = {
-        "/images/**", "/css/**", "/js/**", "/h2-console/**", "/user/home", "/user/register", "/user/login"
+    private static final String [] ENDPOINT_WHITELIST = {
+            "/images/**", "/css/**", "/js/**", "/h2-console/**", "/user/home" ,"/user/register", "/user/login"
     };
 
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.httpBasic(Customizer.withDefaults())
-                .authorizeHttpRequests(request -> request.requestMatchers(ENDPOINT_WHITELIST).permitAll()
-                      .anyRequest().authenticated())
+                .authorizeHttpRequests(request -> request.requestMatchers(ENDPOINT_WHITELIST)
+                            .permitAll()
+                            .anyRequest()
+                            .authenticated())
                 .formLogin(form -> form.loginPage("/user/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
@@ -35,16 +39,17 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .permitAll())
-                .csrf(csrf -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))// Allow CSRF for H2 console
                 .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception{
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
         builder.authenticationProvider(customAuthenticationProvider);
         return builder.build();
     }
+
 }

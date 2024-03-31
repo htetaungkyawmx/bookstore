@@ -2,7 +2,6 @@ package com.bs.bookstore.provider;
 
 import com.bs.bookstore.entity.User;
 import com.bs.bookstore.service.UserService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,20 +19,19 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Configuration
-@AllArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
 
     @Bean
-    public PasswordEncoder encoder() {
+    public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-         String email = authentication.getName();
-         String password = authentication.getCredentials().toString();
+        String email = authentication.getName();
+        String password = authentication.getCredentials().toString();
 
         Optional<User> optionalUser = userService.findUserByEmail(email);
 
@@ -42,8 +40,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
         User user = optionalUser.get();
 
-        if (!encoder().matches(password, user.getPassword())){
-            throw new BadCredentialsException("Wrong Password.");
+        if (!encoder().matches(password, user.getPassword())) {
+            throw new BadCredentialsException("Invalid Password");
         }
         Collection<? extends GrantedAuthority> authorities = user.getRoles()
                 .stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
