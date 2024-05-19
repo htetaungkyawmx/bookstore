@@ -2,12 +2,19 @@
 <html lang="en" th:fragment="layout (content)" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head.html :: head}"></head>
 <body>
+
+    <nav class="nav-menu">
+        <div th:replace="~{fragments/header.html :: header}"></div>
+        <div th:replace="~{fragments/sidebar.html :: sidebar}"></div>
+    </nav>
+    <section class="overlay">
+        <main th:replace="${content}"></main>
+    </section>
+
+
     <script th:src="@{/js/jquery.min.js}"></script> <!-- jQuery v3.6.0  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <header th:replace="~{fragments/header.html :: header}"></header>
-    <main th:replace="${content}"></main>
-
     <script th:src="@{/js/navbar.js}"></script>
+    <script th:src="@{/js/sidebar.js}"></script>
 </body>
 </html>
